@@ -1,0 +1,236 @@
+:root {
+  --primary: #2563eb;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --bg-dark: #0f172a;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+body {
+  background-color: var(--bg-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Layout Grid Tự Động Responsive */
+.main-wrapper {
+  width: 100%;
+  max-width: 1050px;
+  display: grid;
+  gap: 15px;
+  transition: all 0.3s ease;
+}
+
+/* TỰ ĐỘNG RESPONSIVE THEO THIẾT BỊ */
+@media (max-width: 768px) {
+  .main-wrapper {
+    grid-template-columns: 1fr !important;
+    max-width: 420px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .main-wrapper {
+    grid-template-columns: 1fr 1fr;
+    max-width: 1050px;
+  }
+}
+
+body.mobile-view-active {
+  padding: 10px 5px;
+}
+
+body.mobile-view-active .main-wrapper {
+  max-width: 390px !important;
+  background: #000;
+  padding: 12px;
+  border-radius: 36px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  grid-template-columns: 1fr !important;
+}
+
+/* Panel Card */
+.panel-card {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--text-main);
+}
+
+.user-selector-box {
+  background: #e2e8f0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--text-main);
+}
+
+.user-selector-box select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 12px;
+  font-weight: bold;
+  background: #fff;
+  cursor: pointer;
+}
+
+.esp-status { display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+.esp-status.online { background: rgba(22, 163, 74, 0.2); color: #4ade80; border: 1px solid #16a34a; }
+.esp-status.offline { background: rgba(220, 38, 38, 0.2); color: #f87171; border: 1px solid #dc2626; }
+.esp-status .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+/* Canvas 3D */
+.canvas-wrapper { width: 100%; height: 190px; background: #cbd5e1; position: relative; border-radius: 10px; overflow: hidden; }
+#doorCanvas { width: 100%; height: 100%; }
+.state-tag {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: bold; color: #fff;
+}
+.state-tag.locked { background: var(--danger); }
+.state-tag.unlocked { background: var(--success); }
+
+/* Control actions */
+.control-actions { display: flex; flex-direction: column; gap: 8px; }
+.btn-lock {
+  width: 100%; padding: 12px; border-radius: 10px; border: none;
+  font-size: 12px; font-weight: bold; color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.btn-lock.locked { background: var(--danger); }
+.btn-lock.unlocked { background: var(--success); }
+.quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.action-btn-primary {
+  width: 100%; padding: 10px 6px; background: var(--primary); color: #fff; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 11px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+
+/* HARDWARE SIMULATOR BOARD */
+.hardware-board {
+  background: #1e293b; color: #fff; border: 2px solid #334155;
+}
+.hardware-board .panel-header { color: #f8fafc; }
+
+.buzzer-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+.buzzer-badge.quiet { background: #334155; color: #94a3b8; }
+.buzzer-badge.alarm { background: #dc2626; color: #fff; animation: blinkAlarm 0.5s infinite alternate; }
+
+@keyframes blinkAlarm {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.hardware-keypad-box {
+  background: #0f172a; padding: 12px; border-radius: 12px; border: 1px solid #334155;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.hw-title { font-size: 11px; font-weight: bold; color: #38bdf8; }
+.hw-pin-display {
+  font-family: 'Courier New', monospace; font-size: 24px; font-weight: bold;
+  letter-spacing: 6px; color: #4ade80; background: #000; padding: 6px 20px; border-radius: 8px; border: 1px solid #22c55e;
+}
+.hw-msg { font-size: 10px; color: #94a3b8; min-height: 14px; font-weight: 600; }
+
+.hw-keypad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: 100%; max-width: 220px; }
+.hw-keypad-grid button {
+  padding: 10px; border-radius: 8px; border: none; background: #334155; color: #fff;
+  font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.1s;
+}
+.hw-keypad-grid button:active { background: #475569; transform: scale(0.95); }
+.hw-keypad-grid button.btn-clear { background: var(--warning); }
+.hw-keypad-grid button.btn-submit { background: var(--success); }
+
+.hw-indicators {
+  display: flex; justify-content: space-around; background: #0f172a; padding: 8px; border-radius: 10px; font-size: 11px; font-weight: bold;
+}
+.indicator-item { display: flex; align-items: center; gap: 6px; }
+.ind-led { padding: 2px 8px; border-radius: 6px; font-size: 10px; }
+.ind-led.locked { background: #dc2626; color: #fff; }
+.ind-led.unlocked { background: #16a34a; color: #fff; }
+.ind-led.off { background: #334155; color: #94a3b8; }
+.ind-led.on { background: #f59e0b; color: #000; animation: blinkAlarm 0.4s infinite alternate; }
+
+.camera-embed-box {
+  background: #0f172a; padding: 8px; border-radius: 10px; border: 1px solid #334155;
+}
+
+/* Webcam Container */
+.webcam-container { width: 100%; height: 150px; background: #000; border-radius: 10px; position: relative; overflow: hidden; }
+#webcamStream { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+.face-scan-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; pointer-events: none;
+}
+.scan-box {
+  width: 80px; height: 100px; border: 2px dashed #38bdf8; border-radius: 16px;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5); animation: pulseScan 1.5s infinite alternate;
+}
+@keyframes pulseScan {
+  0% { border-color: #38bdf8; } 100% { border-color: #4ade80; box-shadow: 0 0 18px rgba(74,222,128,0.8); }
+}
+#scanStatusText {
+  margin-top: 6px; font-size: 10px; font-weight: bold; color: #fff;
+  background: rgba(0,0,0,0.7); padding: 2px 8px; border-radius: 6px;
+}
+.cam-toggle-btn { background: #e2e8f0; border: none; padding: 4px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold; }
+
+/* Nhật ký */
+.log-container { background: #fff; border-radius: 10px; padding: 8px; border: 1px solid #e2e8f0; margin-top: 4px; }
+.log-header { display: flex; justify-content: space-between; font-size: 11px; font-weight: bold; margin-bottom: 4px; color: var(--text-main); }
+.log-header small { color: #94a3b8; cursor: pointer; }
+.log-list { display: flex; flex-direction: column; gap: 4px; max-height: 100px; overflow-y: auto; }
+.log-item { display: flex; justify-content: space-between; font-size: 10px; padding: 4px 6px; background: #f1f5f9; border-radius: 4px; color: #475569; }
+
+/* Modal PIN & Keypad */
+.modal-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(4px);
+}
+.modal-content { background: #fff; width: 85%; max-width: 320px; border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 14px; }
+.close-btn { font-size: 20px; cursor: pointer; color: #94a3b8; }
+.pin-display { display: flex; justify-content: center; gap: 10px; margin: 12px 0; }
+.pin-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #cbd5e1; transition: 0.2s; }
+.pin-dot.active { background: var(--primary); border-color: var(--primary); }
+.error-text { font-size: 11px; font-weight: bold; color: var(--danger); min-height: 16px; margin-bottom: 8px; }
+.keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.keypad button {
+  padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; background: #f8fafc;
+  font-size: 16px; font-weight: bold; color: var(--text-main); cursor: pointer;
+}
+.keypad button:active { background: #cbd5e1; }
+
+/* MODAL CẢNH BÁO KHẨN CẤP */
+.modal-overlay.alert-mode { background: rgba(220, 38, 38, 0.85); z-index: 200; }
+.alert-box { background: #fff; border: 3px solid #dc2626; color: #1e293b; }
+.alert-icon { font-size: 40px; color: #dc2626; margin-bottom: 8px; animation: blinkAlarm 0.4s infinite alternate; }
+.alert-box h2 { color: #dc2626; font-size: 18px; margin-bottom: 8px; }
+.alert-box p { font-size: 12px; font-weight: bold; margin-bottom: 16px; color: #475569; }
+.btn-dismiss-alert {
+  width: 100%; padding: 12px; background: #dc2626; color: #fff; border: none; border-radius: 10px;
+  font-weight: bold; font-size: 13px; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+}
